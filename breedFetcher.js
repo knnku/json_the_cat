@@ -1,25 +1,22 @@
 const request = require("request");
 
-const fetchBreedDescription = function(breed, callback) {
+const fetchBreedDescription = function (breed, callback) {
   request(
     "https://api.thecatapi.com/v1/breeds/search?q=" + breed,
     (error, response, body) => {
-      if (error && error.code === "ENOTFOUND") {
-        return console.log("Error: There was an error with the server.");
+      if (error && error.code === "ENOTFOUND") { //Check if errors were caught at server connection
+        callback("Error: There was an error with the server.", null);
+        return;
       }
       const data = JSON.parse(body);
-      if (data.length === 0) {
-        return console.log("The breed entered does not exist.");
+      if (data.length === 0) { //Check if the requested array(JSON data) has content
+        callback("The breed entered does not exist.", null);
+        return;
       }
-
-      console.log(data[0].description);
+      //Return description key from json object
+      callback(null, data[0].description);
     }
   );
-
 };
 
-
-
-
-module.exports = fetchBreedDescription;
-
+module.exports = { fetchBreedDescription };
