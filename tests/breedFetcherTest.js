@@ -21,7 +21,7 @@ describe("fetchBreedDescription", () => {
 });
 
 describe("fetchBreedDescription", () => {
-  it("returns a an error that the breed does not exist, via callback", (done) => {
+  it("returns an error that the breed does not exist, via callback", (done) => {
     fetchBreedDescription("Chewbacca", (err, desc) => {
       // we expect no error for this scenario
       assert.equal(desc, null);
